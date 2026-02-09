@@ -83,3 +83,59 @@ The following pages have been developed and connected to the backend API:
 
 -   **Frontend Build Process**: Implement a frontend build process (e.g., using Webpack or Vite) to bundle assets, compile Tailwind CSS, and remove direct CDN links.
 "# ZAKSOFT-Learn"  
+Nous n'allons donc pas faire une migration, mais nous allons utiliser l'analyse précédente comme un cahier des charges fonctionnel pour construire une nouvelle application web moderne.
+
+  Le plan est donc le suivant :
+   * Backend : Nous construirons une API serverless en utilisant l'écosystème Firebase (Firestore, Firebase Authentication, Cloud Functions).
+   * Frontend : Nous construirons une interface utilisateur réactive et dynamique avec React.
+
+  Considérez la description précédente comme la maquette fonctionnelle de notre objectif. Voici comment nous allons l'implémenter avec cette nouvelle architecture technique.
+
+  ---
+
+  Plan de Développement Détaillé
+
+  Partie 1 : Le Backend sur Firebase (Notre "Cerveau" Serverless)
+
+  La logique reste la même que dans l'analyse, mais nous la construirons directement sur Firebase.
+
+   1. Authentification des Utilisateurs (`Firebase Authentication`) :
+       * Nous activerons l'authentification par email/mot de passe.
+       * Firebase gérera pour nous l'inscription, la connexion, la réinitialisation de mot de passe, et la sécurité des sessions. Il n'y aura pas de models/User.js avec un mot de passe à gérer.
+
+   2. Base de Données (`Cloud Firestore`) :
+       * Nous créerons des "collections" dans Firestore pour remplacer nos anciens modèles.
+           * users : Pour stocker les informations de profil (nom, rôle), liées par l'ID unique de Firebase Auth.
+           * formations, lessons, projets, certifications : Pour le contenu pédagogique.
+           * quizzes, questions : Pour les évaluations.
+           * userProgress : Pour suivre la progression des utilisateurs dans les cours.
+       * La structure sera flexible comme MongoDB, mais avec les avantages du temps réel et de la scalabilité de Firebase.
+
+   3. Logique Métier (`Cloud Functions`) :
+       * Nous écrirons des fonctions JavaScript/TypeScript qui s'exécuteront sur les serveurs de Google.
+       * Exemples de fonctions :
+           * api-getFormations : Une fonction HTTP qui lit et renvoie la liste des formations depuis Firestore.
+           * api-updateUserProgress : Une fonction HTTP sécurisée qui met à jour la progression d'un utilisateur après la complétion d'une leçon.
+           * api-checkQuiz : Une fonction qui évalue les réponses d'un quiz et retourne le score.
+
+  Partie 2 : Le Frontend avec React (Notre Interface Utilisateur Moderne)
+
+  C'est ici que le changement est le plus significatif. Au lieu de multiples fichiers HTML, nous allons construire une Single Page Application (SPA).
+
+   1. Initialisation du Projet (`Vite + React`) :
+       * Nous utiliserons un outil moderne comme Vite pour créer un nouveau projet React. C'est rapide et efficace.
+       * La commande sera : npm create vite@latest zaksoft-learn-frontend -- --template react (ou react-ts si nous voulons utiliser TypeScript pour plus de robustesse).
+
+   2. Architecture en Composants :
+       * Le cœur de React est de tout penser en "composants" réutilisables.
+       * src/components/ : Dossier pour les petits éléments réutilisables : Button.jsx, Card.jsx, Header.jsx, Footer.jsx. (Remplace le dossier includes/).
+       * src/pages/ : Dossier pour les composants qui représentent une page entière : HomePage.jsx, LoginPage.jsx, DashboardPage.jsx, FormationDetailPage.jsx. (Remplace les fichiers .html).
+
+   3. Gestion des Routes (`React Router DOM`) :
+       * Il n'y aura qu'un seul fichier index.html. La navigation sera gérée par JavaScript.
+       * Nous installerons la bibliothèque react-router-dom.
+       * Nous définirons un routeur qui associe une URL (/login, /dashboard) à un composant de page (<LoginPage />, <DashboardPage />).
+       * Nous créerons des Routes Protégées : un composant spécial qui vérifiera si l'utilisateur est connecté avant d'afficher des pages comme le Dashboard. (Remplace auth-guard.js).
+
+   4. Gestion de l'État Global (`React Context` ou `Zustand/Redux`) :
+       * Nous aurons besoin de partager des informations à travers toute l'application, notamment : "l'utilisateur est-il connecté ?" et "qui est l'utilisateur

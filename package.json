@@ -1,0 +1,26 @@
+{
+  "name": "zaksoft-learn",
+  "version": "1.0.0",
+  "description": "Zaksoft Learn - Monorepo for Frontend and Backend",
+  "main": "index.js",
+  "scripts": {
+    "start:backend": "npm start --prefix zaksoft-learn-backend",
+    "start:frontend": "npm run dev --prefix zaksoft-learn-frontend",
+    "dev": "concurrently \"npm:start:backend\" \"npm:start:frontend\"",
+    "install:backend": "npm install --prefix zaksoft-learn-backend",
+    "install:frontend": "npm install --prefix zaksoft-learn-frontend",
+    "install": "npm run install:backend && npm run install:frontend",
+    "build:frontend": "npm run build --prefix zaksoft-learn-frontend",
+    "deploy:frontend": "npm run build:frontend && firebase deploy",
+    "deploy:backend": "echo 'Backend deployment is triggered by a git push to the branch linked to Render.'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  }
+}

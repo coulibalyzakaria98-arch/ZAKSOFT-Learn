@@ -138,4 +138,4 @@ Nous n'allons donc pas faire une migration, mais nous allons utiliser l'analyse 
        * Nous créerons des Routes Protégées : un composant spécial qui vérifiera si l'utilisateur est connecté avant d'afficher des pages comme le Dashboard. (Remplace auth-guard.js).
 
    4. Gestion de l'État Global (`React Context` ou `Zustand/Redux`) :
-       * Nous aurons besoin de partager des informations à travers toute l'application, notamment : "l'utilisateur est-il connecté ?" et "qui est l'utilisateur
+       * Nous aurons besoin de partager des informations à travers toute l'application, notamment : "l'utilisateur est-il connecté ?" et "qui est l'utilisateur# ZAK-Learn
